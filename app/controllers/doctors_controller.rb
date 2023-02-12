@@ -1,7 +1,7 @@
 class DoctorsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-    # skip_before_action :authorize only: [:create]
+    skip_before_action :authorize only: [:create]
     def index 
         doctors = Doctor.all
         render json: doctors, status: :ok
