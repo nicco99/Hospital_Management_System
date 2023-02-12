@@ -1,6 +1,7 @@
 class PatientsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+# skip_before_action :authorize, only: [:create]
 def index 
 patients = Patient.all
 render json: patients, status: :ok
@@ -35,7 +36,7 @@ def record_not_found
 render json: {message: "Patient not found"}, status: :not_found
 end
 def record_invalid invalid
-render json: {errors: invalid.record.errors.full_messages} status: :unprocessable_entity
+render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
 end
 
 def patient_params
